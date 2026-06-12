@@ -1,8 +1,8 @@
-# SauceDemo Test Automation Framework
+# Фреймворк автоматизации тестирования SauceDemo
 
-This is a comprehensive test automation framework for the SauceDemo application built with Python, Playwright, and Pytest.
+Это комплексный фреймворк автоматизации тестирования для приложения SauceDemo, созданный с использованием Python, Playwright и Pytest.
 
-## Project Structure
+## Структура проекта
 
 ```
 saucedemo_tests/
@@ -32,87 +32,87 @@ saucedemo_tests/
 └── README.md
 ```
 
-## Setup Instructions
+## Инструкции по установке
 
-1. Clone the repository
-2. Install dependencies:
+1. Клонируйте репозиторий
+2. Установите зависимости:
    ```
    pip install -r requirements.txt
    ```
-3. Install Playwright browsers:
+3. Установите браузеры Playwright:
    ```
    playwright install
    ```
-   Or use our test runner with the `--install-browsers` flag
+   Или используйте наш скрипт запуска с флагом `--install-browsers`
 
-## Running Tests
+## Запуск тестов
 
-To run all tests with default settings (Chromium, headless):
+Для запуска всех тестов со стандартными настройками (Chromium, без графического интерфейса):
 ```
 pytest --browser=chromium
 ```
 
-To run tests with HTML report:
+Для запуска тестов с HTML отчетом:
 ```
 pytest --browser=chromium --html=reports/test_report.html
 ```
 
-To run tests in headed mode:
+Для запуска тестов в режиме с графическим интерфейсом:
 ```
 pytest --browser=chromium --headed
 ```
 
-To run tests in parallel:
+Для запуска тестов параллельно:
 ```
 pytest --browser=chromium -n auto
 ```
 
-To run using the test runner:
+Для запуска с помощью скрипта тестирования:
 ```
 python run_tests.py --install-browsers
 ```
 
-## Configuration
+## Конфигурация
 
-The framework uses a configuration file (`config.py`) and environment variables to manage settings:
+Фреймворк использует файл конфигурации (`config.py`) и переменные окружения для управления настройками:
 
-### Configuration Options
+### Параметры конфигурации
 
-- `BASE_URL`: The base URL of the application under test (default: https://www.saucedemo.com/)
-- `REPORTS_DIR`: Directory for test reports (default: reports)
-- `LOGS_DIR`: Directory for log files (default: logs)
+- `BASE_URL`: Базовый URL тестируемого приложения (по умолчанию: https://www.saucedemo.com/)
+- `REPORTS_DIR`: Директория для отчетов о тестах (по умолчанию: reports)
+- `LOGS_DIR`: Директория для файлов журналов (по умолчанию: logs)
 
-### Using Environment Variables
+### Использование переменных окружения
 
-You can override configuration settings using environment variables:
+Вы можете переопределить настройки конфигурации с помощью переменных окружения:
 
 ```bash
 export BASE_URL="https://your-test-site.com"
 pytest --browser=chromium
 ```
 
-## Key Features
+## Основные особенности
 
-- Page Object Model (POM) design pattern
-- Cross-browser support (Chromium, Firefox, WebKit)
-- Comprehensive logging
-- Test data management
-- Headless/Headed execution options
-- Parallel test execution support
-- Detailed HTML reports
-- Flexible configuration via config file and environment variables
+- Шаблон проектирования Page Object Model (POM)
+- Поддержка кросс-браузерного тестирования (Chromium, Firefox, WebKit)
+- Комплексное ведение журналов
+- Управление тестовыми данными
+- Возможность выполнения в headless/headed режимах
+- Поддержка параллельного выполнения тестов
+- Подробные HTML отчеты
+- Гибкая конфигурация через файл конфигурации и переменные окружения
 
-## Utilities
+## Утилиты
 
-- `test_data.py`: Centralized test data management
-- `driver_factory.py`: Playwright browser management utilities
-- `logger.py`: Logging functionality with file and console output
-- `run_tests.py`: Test runner script with various execution options
+- `test_data.py`: Централизованное управление тестовыми данными
+- `driver_factory.py`: Утилиты управления браузером Playwright
+- `logger.py`: Функциональность ведения журналов с выводом в файл и консоль
+- `run_tests.py`: Скрипт запуска тестов с различными вариантами выполнения
 
-## Playwright Specific Features
+## Особенности Playwright
 
-- Auto-waiting capabilities
-- Robust element selection
-- Network interception
-- Device emulation
-- Mobile testing support
+- Возможности автоматического ожидания
+- Надежный выбор элементов
+- Перехват сети
+- Эмуляция устройств
+- Поддержка мобильного тестирования
