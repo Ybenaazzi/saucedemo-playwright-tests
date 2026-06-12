@@ -1,0 +1,17 @@
+2026-06-12 04:25:48,711 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for standard_user
+2026-06-12 04:25:53,674 - saucedemo_tests.tests.test_saucedemo - INFO - Login successful for standard_user, with potential UI differences
+2026-06-12 04:25:53,783 - saucedemo_tests.tests.test_saucedemo - INFO - Starting locked out user login test
+2026-06-12 04:26:16,501 - saucedemo_tests.tests.test_saucedemo - INFO - Locked out user login test passed
+2026-06-12 04:26:16,577 - saucedemo_tests.tests.test_saucedemo - INFO - Starting invalid login test
+2026-06-12 04:26:18,197 - saucedemo_tests.tests.test_saucedemo - INFO - Invalid login test passed
+2026-06-12 04:26:18,272 - saucedemo_tests.tests.test_saucedemo - INFO - Starting add item to cart test
+2026-06-12 04:26:19,827 - saucedemo_tests.tests.test_saucedemo - INFO - Add item to cart test passed
+2026-06-12 04:26:19,918 - saucedemo_tests.tests.test_saucedemo - INFO - Starting logout test
+2026-06-12 04:26:52,534 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for problem_user
+2026-06-12 04:26:53,930 - saucedemo_tests.tests.test_saucedemo - INFO - Login successful for problem_user, with potential UI differences
+2026-06-12 04:26:54,003 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for performance_glitch_user
+2026-06-12 04:27:00,407 - saucedemo_tests.tests.test_saucedemo - INFO - Login successful for performance_glitch_user, with potential UI differences
+2026-06-12 04:27:00,487 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for error_user
+2026-06-12 04:27:23,301 - saucedemo_tests.tests.test_saucedemo - INFO - Login successful for error_user, with potential UI differences
+2026-06-12 04:27:23,380 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for visual_user
+2026-06-12 04:27:24,799 - saucedemo_tests.tests.test_saucedemo - INFO - Login successful for visual_user, with potential UI differences

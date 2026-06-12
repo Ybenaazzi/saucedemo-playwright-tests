@@ -1,0 +1,20 @@
+2026-06-12 04:29:18,499 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for standard_user
+2026-06-12 04:29:48,913 - saucedemo_tests.tests.test_saucedemo - INFO - Starting locked out user login test
+2026-06-12 04:29:50,531 - saucedemo_tests.tests.test_saucedemo - INFO - Locked out user login test passed
+2026-06-12 04:29:50,636 - saucedemo_tests.tests.test_saucedemo - INFO - Starting invalid login test
+2026-06-12 04:29:52,058 - saucedemo_tests.tests.test_saucedemo - INFO - Invalid login test passed
+2026-06-12 04:29:52,143 - saucedemo_tests.tests.test_saucedemo - INFO - Starting add item to cart test
+2026-06-12 04:30:14,564 - saucedemo_tests.tests.test_saucedemo - INFO - Add item to cart test passed
+2026-06-12 04:30:14,702 - saucedemo_tests.tests.test_saucedemo - INFO - Starting logout test
+2026-06-12 04:30:42,514 - saucedemo_tests.tests.test_saucedemo - ERROR - Test failed: Timeout 10000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/saucedemo.com/**" until 'load'
+============================================================
+2026-06-12 04:30:42,788 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for problem_user
+2026-06-12 04:31:05,929 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for problem_user
+2026-06-12 04:31:06,026 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for performance_glitch_user
+2026-06-12 04:31:22,569 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for performance_glitch_user
+2026-06-12 04:31:22,657 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for error_user
+2026-06-12 04:31:39,199 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for error_user
+2026-06-12 04:31:39,297 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for visual_user
+2026-06-12 04:32:16,957 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for visual_user

@@ -1,0 +1,6 @@
+2026-06-11 22:16:52,170 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test
+2026-06-11 22:16:53,817 - saucedemo_tests.tests.test_saucedemo - INFO - Starting invalid login test
+2026-06-11 22:16:55,291 - saucedemo_tests.tests.test_saucedemo - INFO - Invalid login test passed
+2026-06-11 22:16:55,379 - saucedemo_tests.tests.test_saucedemo - INFO - Starting add item to cart test
+2026-06-11 22:16:56,781 - saucedemo_tests.tests.test_saucedemo - INFO - Add item to cart test passed
+2026-06-11 22:16:56,909 - saucedemo_tests.tests.test_saucedemo - INFO - Starting logout test

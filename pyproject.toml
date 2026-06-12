@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saucedemo-tests"
+description = "Test automation framework for SauceDemo using Playwright"
+version = "1.0.0"
+authors = [
+    {name = "SauceDemo Test Team"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+dependencies = [
+    "playwright==1.40.0",
+    "pytest==7.4.3",
+    "pytest-html==4.1.1",
+    "pytest-playwright==0.4.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "pytest-xdist"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["saucedemo_tests*"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose"
+]
+testpaths = [
+    "tests"
+]
+markers = [
+    "slow: marks tests as slow",
+    "regression: marks tests as regression tests",
+    "smoke: marks tests as smoke tests"
+]
+
+[tool.playwright]
+# Playwright-specific configurations
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/venv/*",
+    "*/tests/*",
+    "run_tests.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:"
+]

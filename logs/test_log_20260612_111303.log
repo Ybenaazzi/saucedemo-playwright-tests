@@ -1,0 +1,20 @@
+2026-06-12 11:13:05,003 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for standard_user
+2026-06-12 11:13:27,843 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for standard_user
+2026-06-12 11:13:28,124 - saucedemo_tests.tests.test_saucedemo - INFO - Starting locked out user login test
+2026-06-12 11:13:29,485 - saucedemo_tests.tests.test_saucedemo - INFO - Locked out user login test passed
+2026-06-12 11:13:29,699 - saucedemo_tests.tests.test_saucedemo - INFO - Starting invalid login test
+2026-06-12 11:13:52,136 - saucedemo_tests.tests.test_saucedemo - INFO - Invalid login test passed
+2026-06-12 11:13:52,300 - saucedemo_tests.tests.test_saucedemo - INFO - Starting add item to cart test
+2026-06-12 11:14:22,709 - saucedemo_tests.tests.test_saucedemo - INFO - Starting logout test
+2026-06-12 11:15:11,108 - saucedemo_tests.tests.test_saucedemo - ERROR - Test failed: Timeout 10000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/saucedemo.com/**" until 'load'
+============================================================
+2026-06-12 11:15:11,507 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for problem_user
+2026-06-12 11:15:14,551 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for problem_user
+2026-06-12 11:15:14,780 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for performance_glitch_user
+2026-06-12 11:15:31,673 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for performance_glitch_user
+2026-06-12 11:15:31,900 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for error_user
+2026-06-12 11:15:48,479 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for error_user
+2026-06-12 11:15:48,758 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for visual_user
+2026-06-12 11:16:11,356 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for visual_user

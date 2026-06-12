@@ -1,0 +1,21 @@
+2026-06-12 11:08:10,116 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for standard_user
+2026-06-12 11:08:35,716 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for standard_user
+2026-06-12 11:08:35,811 - saucedemo_tests.tests.test_saucedemo - INFO - Starting locked out user login test
+2026-06-12 11:08:37,457 - saucedemo_tests.tests.test_saucedemo - INFO - Locked out user login test passed
+2026-06-12 11:08:37,532 - saucedemo_tests.tests.test_saucedemo - INFO - Starting invalid login test
+2026-06-12 11:08:38,822 - saucedemo_tests.tests.test_saucedemo - INFO - Invalid login test passed
+2026-06-12 11:08:38,896 - saucedemo_tests.tests.test_saucedemo - INFO - Starting add item to cart test
+2026-06-12 11:09:01,375 - saucedemo_tests.tests.test_saucedemo - INFO - Add item to cart test passed
+2026-06-12 11:09:01,455 - saucedemo_tests.tests.test_saucedemo - INFO - Starting logout test
+2026-06-12 11:09:28,837 - saucedemo_tests.tests.test_saucedemo - ERROR - Test failed: Timeout 10000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/saucedemo.com/**" until 'load'
+============================================================
+2026-06-12 11:09:29,073 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for problem_user
+2026-06-12 11:09:45,343 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for problem_user
+2026-06-12 11:09:45,440 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for performance_glitch_user
+2026-06-12 11:10:01,738 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for performance_glitch_user
+2026-06-12 11:10:01,823 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for error_user
+2026-06-12 11:10:18,144 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for error_user
+2026-06-12 11:10:18,229 - saucedemo_tests.tests.test_saucedemo - INFO - Starting valid login test for visual_user
+2026-06-12 11:10:34,585 - saucedemo_tests.tests.test_saucedemo - INFO - Valid login test passed for visual_user
