@@ -60,7 +60,11 @@ class ProductsPage(BasePage):
 
     def logout(self):
         """Perform logout from the application."""
+        # First click the menu button to reveal the logout option
         self.click_menu_button()
+        # Wait for the menu to appear
+        self.page.wait_for_selector(SauceDemoLocators.LOGOUT_BUTTON, state="visible", timeout=5000)
+        # Then click the logout button
         self.click_logout_button()
 
     def is_products_page_loaded(self):
