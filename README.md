@@ -10,7 +10,10 @@ saucedemo_tests/
 │   ├── __init__.py
 │   ├── base_page.py
 │   ├── login_page.py
-│   └── inventory_page.py
+│   ├── inventory_page.py
+│   ├── products_page.py
+│   ├── cart_page.py
+│   └── checkout_page.py
 ├── locators/
 │   ├── __init__.py
 │   └── saucedemo_locators.py
