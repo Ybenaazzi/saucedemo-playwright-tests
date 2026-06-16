@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # ✅ FIXED: استخدم Ubuntu 22.04
     timeout-minutes: 15
     
     steps:
@@ -26,7 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Install Playwright browsers 🌐
+    - name: Install Playwright browsers & deps 🌐
       run: |
         playwright install chromium
         playwright install-deps chromium
@@ -36,7 +36,12 @@ jobs:
 
     - name: Run tests 🧪
       run: |
-        pytest tests/ --html=reports/report.html --self-contained-html --screenshot=only-on-failure --tracing=retain-on-failure --video=retain-on-failure
+        pytest tests/ \
+          --html=reports/report.html \
+          --self-contained-html \
+          --screenshot=only-on-failure \
+          --tracing=retain-on-failure \
+          --video=retain-on-failure
       env:
         CI: true
         PYTHONPATH: ${{ github.workspace }}

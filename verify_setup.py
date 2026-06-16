@@ -1,6 +1,9 @@
 """
 Simple script to verify the test setup is working correctly.
 """
+import sys
+import os
+from pathlib import Path
 from playwright.sync_api import sync_playwright
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
@@ -11,11 +14,11 @@ def verify_basic_functionality():
     print("Starting basic functionality verification...")
     
     with sync_playwright() as p:
-        # Launch browser
-        browser = p.chromium.launch(headless=False)  # Use headless=False to see the browser
-        page = browser.new_page()
-        
         try:
+            # Launch browser
+            browser = p.chromium.launch(headless=True)  # Use headless=True for CI environments
+            page = browser.new_page()
+            
             # Go to the login page
             print("Navigating to SauceDemo login page...")
             page.goto(TestData.BASE_URL)
@@ -30,6 +33,7 @@ def verify_basic_functionality():
                 print("✓ Login page loaded successfully")
             else:
                 print("✗ Login page failed to load")
+                return False
                 
             # Perform a simple login with standard user
             print("Performing login with standard user...")
@@ -48,6 +52,7 @@ def verify_basic_functionality():
                 print("✓ Products page loaded successfully")
             else:
                 print("✗ Products page failed to load")
+                return False
             
             # Get number of products
             product_count = len(products_page.get_products())
@@ -59,6 +64,7 @@ def verify_basic_functionality():
                 print("✓ Successfully added first product to cart")
             else:
                 print("✗ Failed to add product to cart")
+                # This might not be a failure if no products exist, so continue
             
             # Click on shopping cart
             print("Clicking on shopping cart...")
@@ -70,16 +76,32 @@ def verify_basic_functionality():
             
             print("✓ Navigation to cart successful")
             
-        except Exception as e:
-            print(f"✗ Error during verification: {str(e)}")
-        
-        finally:
             # Close browser
             print("Closing browser...")
             browser.close()
-    
-    print("Verification complete!")
+            
+            return True
+            
+        except Exception as e:
+            print(f"✗ Error during verification: {str(e)}")
+            # Ensure browser is closed in case of error
+            try:
+                browser.close()
+            except:
+                pass
+            return False
 
 
 if __name__ == "__main__":
-    verify_basic_functionality()
+    # Add the project root directory to the Python path
+    project_root = Path(__file__).parent
+    sys.path.insert(0, str(project_root))
+    
+    success = verify_basic_functionality()
+    
+    if success:
+        print("\n✓ Verification completed successfully!")
+        sys.exit(0)
+    else:
+        print("\n✗ Verification failed!")
+        sys.exit(1)
