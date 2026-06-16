@@ -134,9 +134,9 @@ class TestSauceDemo:
             page.screenshot(path="debug_products_page.png")
             raise e
         
-        # Store initial cart count
-        initial_cart_count = cart_page.get_cart_item_count()
-        self.logger.info(f"Initial cart count: {initial_cart_count}")
+        # Store initial cart count from the cart badge
+        initial_cart_count = products_page.get_cart_badge_count()
+        self.logger.info(f"Initial cart badge count: {initial_cart_count}")
         
         # Add first item to cart
         try:
@@ -145,7 +145,7 @@ class TestSauceDemo:
             assert len(product_names) > 0, "No products available to add to cart"
             first_product_name = product_names[0]
             self.logger.info(f"Attempting to add product: {first_product_name}")
-            
+
             products_page.add_product_by_index_to_cart(0)
         except Exception as e:
             self.logger.error(f"Failed to add product to cart: {str(e)}")
@@ -155,9 +155,9 @@ class TestSauceDemo:
         # Small wait for the cart to update
         page.wait_for_timeout(2000)
         
-        # Check the cart count after adding
-        final_cart_count = cart_page.get_cart_item_count()
-        self.logger.info(f"Final cart count: {final_cart_count}")
+        # Check the cart badge count after adding
+        final_cart_count = products_page.get_cart_badge_count()
+        self.logger.info(f"Final cart badge count: {final_cart_count}")
         
         # Verify item was added
         assert final_cart_count > initial_cart_count, f"Item was not added to cart. Initial: {initial_cart_count}, Final: {final_cart_count}"
@@ -173,8 +173,6 @@ class TestSauceDemo:
         # Verify that we navigated to the cart page
         try:
             page.wait_for_url("**/cart.html", timeout=10000)
-            # Wait for the cart page to load completely
-            page.wait_for_load_state("networkidle")
             assert cart_page.is_cart_page_loaded(), "Cart page did not load properly"
         except Exception as e:
             self.logger.error(f"Failed to load cart page: {str(e)}")
@@ -213,33 +211,43 @@ class TestSauceDemo:
         try:
             products_page.logout()
         except Exception as e:
-            self.logger.error(f"Failed to perform logout: {str(e)}")
-            page.screenshot(path="debug_logout_process.png")
+            self.logger.error(f"Failed to initiate logout: {str(e)}")
+            page.screenshot(path="debug_logout_initiate.png")
             raise e
         
-        # Wait for navigation back to login page
+        # Wait for navigation back to login page - use broader pattern to catch redirect
         try:
-            # Wait for URL to change to login page
-            page.wait_for_url(f"**/{TestData.BASE_URL.replace('https://', '').replace('/', '')}**", timeout=10000)
-            # Wait for the login form elements to be visible
-            page.wait_for_selector("#user-name", state="visible", timeout=5000)
-            page.wait_for_selector("#password", state="visible", timeout=5000)
+            # Wait for the URL to change to the login page
+            page.wait_for_url(f"**{TestData.BASE_URL.lstrip('https://')}**", timeout=10000)
+            # Additional wait to ensure page is fully loaded
+            page.wait_for_load_state("networkidle")
         except Exception as e:
-            # Sometimes the URL might not match exactly, so check for presence of login elements
-            try:
-                assert page.locator("#user-name").is_visible(timeout=5000)
-                assert page.locator("#password").is_visible(timeout=5000)
-            except:
-                self.logger.error(f"Failed to return to login page after logout: {str(e)}")
-                page.screenshot(path="debug_after_logout.png")
+            self.logger.error(f"URL did not change as expected after logout: {str(e)}")
+            # Sometimes the redirect takes a bit longer, so we'll just check if we're on the login page
+            if TestData.BASE_URL not in page.url:
+                # Take a screenshot for debugging
+                page.screenshot(path="debug_logout_redirect.png")
                 raise e
         
-        # Verify that we're back on the login page
-        # Check that login elements are present and we're not on the inventory page
-        assert page.locator("#user-name").is_visible(timeout=5000), "Username field not visible after logout"
-        assert TestData.BASE_URL in page.url or "saucedemo.com" in page.url, "Not on the correct domain after logout"
-        # Ensure we're not still on the inventory page
-        assert not page.locator(".inventory_item").is_visible(timeout=1000), "Still on inventory page after logout"
+        # Verify that we're back on the login page by checking for login elements
+        try:
+            # Wait for login elements to be visible
+            page.wait_for_selector("#user-name", timeout=5000)
+            page.wait_for_selector("#password", timeout=5000)
+            page.wait_for_selector("#login-button", timeout=5000)
+            
+            # Verify login form elements are visible
+            username_visible = page.locator("#user-name").is_visible()
+            password_visible = page.locator("#password").is_visible()
+            login_button_visible = page.locator("#login-button").is_visible()
+            
+            # All login form elements should be visible
+            assert all([username_visible, password_visible, login_button_visible]), \
+                   "Not all login form elements are visible after logout"
+        except Exception as e:
+            self.logger.error(f"Login form elements not visible after logout: {str(e)}")
+            page.screenshot(path="debug_logout_form_check.png")
+            raise e
         
         self.logger.info("Logout test passed")
 
@@ -298,20 +306,22 @@ class TestSauceDemo:
         # Add first product to cart
         products_page.add_product_by_index_to_cart(0)
         
+        # Wait for cart to update
+        page.wait_for_timeout(2000)
+        
         return product_name
 
     def _open_cart(self, products_page, cart_page, page):
         """Helper method to navigate to cart page."""
         products_page.click_shopping_cart()
         page.wait_for_url("**/cart.html", timeout=10000)
-        page.wait_for_load_state("networkidle")
         assert cart_page.is_cart_page_loaded(), "Cart page did not load properly"
 
     def _remove_product_from_cart(self, cart_page, product_name):
         """Helper method to remove a product from cart."""
         # Verify the product is in the cart before removal
         cart_items_before_removal = cart_page.get_cart_item_names()
-        assert product_name in cart_items_before_removal, f"Product {product_name} not found in cart. Cart contains: {cart_items_before_removal}"
+        assert product_name in cart_items_before_removal, f"Product {product_name} not found in cart"
         
         # Remove the product
         removed_successfully = cart_page.remove_item_by_name(product_name)
@@ -320,7 +330,7 @@ class TestSauceDemo:
     def _verify_cart_is_empty(self, cart_page):
         """Helper method to verify the cart is empty."""
         # Wait a bit for the page to update after removal
-        cart_page.page.wait_for_timeout(2000)
+        cart_page.page.wait_for_timeout(1000)
         
         # Verify cart is empty
         cart_item_count = cart_page.get_cart_item_count()

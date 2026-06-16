@@ -28,17 +28,9 @@ class CartPage(BasePage):
         for item in cart_items:
             name_element = item.query_selector(".inventory_item_name")
             if name_element and item_name.lower() in name_element.inner_text().lower():
-                # Find the remove button for this specific item
                 remove_button = item.query_selector(SauceDemoLocators.REMOVE_FROM_CART_BUTTON)
-                if remove_button and remove_button.is_enabled():
+                if remove_button:
                     remove_button.click()
-                    # Wait for the item to be removed from the DOM
-                    try:
-                        # Wait for the specific item to disappear
-                        item.wait_for(state="hidden", timeout=5000)
-                    except:
-                        # If the specific wait fails, just wait a bit more
-                        self.page.wait_for_timeout(1000)
                     return True
         return False
 
@@ -49,30 +41,37 @@ class CartPage(BasePage):
     def is_cart_page_loaded(self):
         """Check if the cart page is loaded."""
         try:
-            # Wait for cart items container to appear on the page
-            self.page.wait_for_selector(SauceDemoLocators.CART_ITEMS, timeout=10000)
-            # We can also check for the presence of cart header or checkout button
-            return (
-                self.page.locator(SauceDemoLocators.CHECKOUT_BUTTON).is_visible(timeout=5000) or
-                self.page.locator(SauceDemoLocators.CART_ITEMS).count() >= 0  # Cart can be empty
-            )
+            # Wait for cart items to appear on the page
+            self.page.wait_for_selector(SauceDemoLocators.CART_ITEMS, state="visible", timeout=10000)
+            # Count visible cart items
+            count = self.page.locator(SauceDemoLocators.CART_ITEMS).count()
+            return count >= 0  # Cart can be empty
         except:
-            # If there's no cart items, check if the empty cart message is visible
-            try:
-                empty_cart_msg = self.page.locator("//*[contains(text(), 'Your cart is empty') or contains(text(), 'Continue Shopping')]")
-                return empty_cart_msg.is_visible(timeout=2000)
-            except:
-                return False
+            return False
 
     def get_cart_item_count(self):
         """Get the total number of items in the cart."""
+        # Force a refresh by waiting for the cart items to be stable
         try:
-            # Wait briefly to ensure page is loaded
-            self.page.wait_for_timeout(500)
-            count = self.page.locator(SauceDemoLocators.CART_ITEMS).count()
-            return count
+            # Wait for any potential animations or updates to complete
+            self.page.wait_for_timeout(1000)
+            # Return the count of cart items
+            return self.page.locator(SauceDemoLocators.CART_ITEMS).count()
         except:
-            # Return 0 if no items are found
+            # If there's an error, return 0
+            return 0
+
+    def get_cart_badge_count(self):
+        """Get the count from the cart badge on the top right."""
+        try:
+            cart_badge = self.page.locator(".shopping_cart_badge")
+            # Wait for the badge to be visible
+            if cart_badge.is_visible():
+                return int(cart_badge.inner_text())
+            else:
+                return 0
+        except:
+            # If the badge is not visible or has no text, return 0
             return 0
 
     def continue_shopping(self):

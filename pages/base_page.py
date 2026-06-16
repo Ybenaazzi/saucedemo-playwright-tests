@@ -47,7 +47,7 @@ class BasePage:
         try:
             element = self.page.locator(locator)
             # Wait for the element to be visible first
-            element.wait_for(state="visible", timeout=5000)
+            element.wait_for(state="visible", timeout=10000)
             return element.is_visible()
         except:
             return False

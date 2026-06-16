@@ -60,11 +60,13 @@ class ProductsPage(BasePage):
 
     def logout(self):
         """Perform logout from the application."""
-        # First click the menu button to reveal the logout option
+        # Click the menu button to open the side menu
         self.click_menu_button()
+        
         # Wait for the menu to appear
-        self.page.wait_for_selector(SauceDemoLocators.LOGOUT_BUTTON, state="visible", timeout=5000)
-        # Then click the logout button
+        self.page.wait_for_selector(SauceDemoLocators.LOGOUT_BUTTON, timeout=5000)
+        
+        # Click the logout button
         self.click_logout_button()
 
     def is_products_page_loaded(self):
@@ -82,3 +84,16 @@ class ProductsPage(BasePage):
         """Sort products by a given option (az, za, lohi, hilo)."""
         sort_selector = "select[data-test='product-sort-container']"
         self.page.locator(sort_selector).select_option(sort_option)
+
+    def get_cart_badge_count(self):
+        """Get the count from the cart badge on the top right."""
+        try:
+            cart_badge = self.page.locator(".shopping_cart_badge")
+            # Wait for the badge to be visible
+            if cart_badge.is_visible():
+                return int(cart_badge.inner_text())
+            else:
+                return 0
+        except:
+            # If the badge is not visible or has no text, return 0
+            return 0
