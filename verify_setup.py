@@ -15,18 +15,13 @@ def setup_imports():
     if project_root_str not in sys.path:
         sys.path.insert(0, project_root_str)
     
-    # Also add parent directory to handle module execution properly
-    parent_dir = str(project_root.parent)
-    if parent_dir not in sys.path:
-        sys.path.insert(0, parent_dir)
-    
     # Set PYTHONPATH environment variable for child processes
     os.environ['PYTHONPATH'] = project_root_str
 
 # Setup imports before any other imports
 setup_imports()
 
-# Import after setting up paths
+# Import after setting up paths - using relative imports since we're in the package context
 from playwright.sync_api import sync_playwright
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage

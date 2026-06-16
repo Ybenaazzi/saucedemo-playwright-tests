@@ -1,4 +1,6 @@
 class TestData:
+    """包含测试所需的所有测试数据常量"""
+    
     # Valid user credentials
     VALID_USER_CREDENTIALS = {
         "standard_user": {
@@ -29,7 +31,7 @@ class TestData:
         "password": "secret_sauce"
     }
 
-    # Invalid user credentials
+    # Invalid user credentials - changed from set to list
     INVALID_CREDENTIALS = [
         {"username": "", "password": ""},
         {"username": "invalid_user", "password": "invalid_password"}

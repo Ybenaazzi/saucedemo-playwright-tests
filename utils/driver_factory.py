@@ -1,50 +1,58 @@
-# In Playwright, browser instances are handled differently
-# This file can be kept for backward compatibility or repurposed
-# Playwright handles browser lifecycle differently than Selenium
+"""
+Driver factory module for creating and managing Playwright browser instances.
+"""
 
 from playwright.sync_api import sync_playwright
-from typing import Generator
+from ..config import Config
 
 
-class PlaywrightManager:
-    def __init__(self):
-        self.playwright = None
-        self.browser = None
-        self.context = None
-        self.page = None
-
-    def start_playwright(self, browser_type="chromium", headless=False, viewport={"width": 1920, "height": 1080}):
-        """Start Playwright and launch browser."""
-        self.playwright = sync_playwright().start()
+class DriverFactory:
+    """
+    Factory class for creating and managing Playwright browser instances.
+    """
+    
+    @staticmethod
+    def create_browser(browser_type="chromium", headless=True):
+        """
+        Create a browser instance based on the specified type.
         
-        if browser_type == "chromium":
-            self.browser = self.playwright.chromium.launch(headless=headless)
-        elif browser_type == "firefox":
-            self.browser = self.playwright.firefox.launch(headless=headless)
-        elif browser_type == "webkit":
-            self.browser = self.playwright.webkit.launch(headless=headless)
+        Args:
+            browser_type (str): Type of browser to create ('chromium', 'firefox', 'webkit')
+            headless (bool): Whether to run browser in headless mode
+        
+        Returns:
+            tuple: A tuple containing (playwright, browser, context, page)
+        """
+        playwright = sync_playwright().start()
+        
+        if browser_type.lower() == "chromium":
+            browser = playwright.chromium.launch(headless=headless)
+        elif browser_type.lower() == "firefox":
+            browser = playwright.firefox.launch(headless=headless)
+        elif browser_type.lower() == "webkit":
+            browser = playwright.webkit.launch(headless=headless)
         else:
-            raise ValueError(f"Unsupported browser: {browser_type}")
+            raise ValueError(f"Unsupported browser type: {browser_type}")
         
-        self.context = self.browser.new_context(viewport=viewport)
-        self.page = self.context.new_page()
+        context = browser.new_context(
+            viewport={'width': Config.VIEWPORT_WIDTH, 'height': Config.VIEWPORT_HEIGHT},
+            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        )
+        page = context.new_page()
         
-        return self.page
+        return playwright, browser, context, page
 
-    def close_playwright(self):
-        """Close all Playwright instances."""
-        if self.page:
-            self.page.close()
-        if self.context:
-            self.context.close()
-        if self.browser:
-            self.browser.close()
-        if self.playwright:
-            self.playwright.stop()
-
-
-def get_browser_page(browser_type="chromium", headless=False):
-    """Convenience function to get a browser page."""
-    manager = PlaywrightManager()
-    page = manager.start_playwright(browser_type=browser_type, headless=headless)
-    return manager, page
+    @staticmethod
+    def close_browser(playwright, browser, context=None):
+        """
+        Close the browser and clean up resources.
+        
+        Args:
+            playwright: The playwright instance
+            browser: The browser instance
+            context: The context instance (optional)
+        """
+        if context:
+            context.close()
+        browser.close()
+        playwright.stop()

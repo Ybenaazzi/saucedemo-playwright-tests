@@ -1,46 +1,49 @@
-# -*- coding: utf-8 -*-
+"""
+Logger module for SauceDemo test automation framework.
+Provides standardized logging functionality with both file and console outputs.
+"""
 import logging
 import os
-from datetime import datetime
+from pathlib import Path
 
 
-class Logger:
-    def __init__(self, name=__name__, log_level=logging.INFO):
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(log_level)
-        
-        # Create logs directory if it doesn't exist
-        log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-        if not os.path.exists(log_dir):
-            os.makedirs(log_dir)
-        
-        # Create file handler
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        log_file = os.path.join(log_dir, f"test_log_{timestamp}.log")
-        
-        file_handler = logging.FileHandler(log_file)
-        file_handler.setLevel(log_level)
-        
-        # Create console handler
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(log_level)
-        
-        # Create formatter
-        formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        file_handler.setFormatter(formatter)
-        console_handler.setFormatter(formatter)
-        
-        # Add handlers to logger
-        if not self.logger.handlers:
-            self.logger.addHandler(file_handler)
-            self.logger.addHandler(console_handler)
+def get_logger(name: str):
+    """
+    Creates and configures a logger with both file and console handlers.
     
-    def get_logger(self):
-        return self.logger
-
-
-def get_logger(name=__name__):
-    """Convenience function to get a configured logger instance."""
-    return Logger(name).get_logger()
+    Args:
+        name (str): Name of the logger (typically __name__ of the module using it)
+    
+    Returns:
+        logging.Logger: Configured logger instance
+    """
+    # Create logger
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+    
+    # Avoid adding handlers multiple times
+    if logger.handlers:
+        return logger
+    
+    # Create formatters
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    
+    # Create console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(formatter)
+    
+    # Create file handler
+    logs_dir = Path(__file__).parent.parent / "logs"
+    logs_dir.mkdir(exist_ok=True)
+    file_handler = logging.FileHandler(logs_dir / "test_execution.log")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    
+    # Add handlers to logger
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+    
+    return logger

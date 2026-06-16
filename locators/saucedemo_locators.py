@@ -1,13 +1,4 @@
-from saucedemo_locators import SauceDemoLocators
 
-def test_locators_import():
-    assert hasattr(SauceDemoLocators, 'USERNAME_INPUT'), "USERNAME_INPUT not found in SauceDemoLocators"
-    assert hasattr(SauceDemoLocators, 'LOGIN_BUTTON'), "LOGIN_BUTTON not found in SauceDemoLocators"
-    print("All locators imported successfully.")
-
-if __name__ == "__main__":
-    test_locators_import()
-# This file makes the directory a Python package
 class SauceDemoLocators:
     # Login Page Locators
     USERNAME_INPUT = "#user-name"

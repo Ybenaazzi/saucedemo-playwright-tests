@@ -1,6 +1,15 @@
+import sys
+import os
+from pathlib import Path
 import pytest
 from .utils.logger import get_logger
 from .config import Config
+
+
+# Add the project root directory to the Python path to enable proper imports
+project_root = Path(__file__).parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 
 @pytest.fixture(scope="function")
