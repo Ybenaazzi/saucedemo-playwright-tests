@@ -9,11 +9,7 @@ on:
 
 jobs:
   test:
-<<<<<<< HEAD
-    runs-on: ubuntu-22.04  # ✅ FIXED: استخدم Ubuntu 22.04
-=======
     runs-on: ubuntu-22.04
->>>>>>> a72eb0c2290505dd6a8270bf13b52e5b0262769e
     timeout-minutes: 15
     
     steps:
@@ -35,20 +31,14 @@ jobs:
         playwright install chromium
         playwright install-deps chromium
 
-    # ✅ FIXED: استخدم python -m
     - name: Verify setup ✅
       run: python -m verify_setup
       env:
         PYTHONPATH: ${{ github.workspace }}
 
-    # ✅ FIXED: استخدم python -m pytest
     - name: Run tests 🧪
       run: |
-<<<<<<< HEAD
-        pytest tests/ \
-=======
         python -m pytest tests/ \
->>>>>>> a72eb0c2290505dd6a8270bf13b52e5b0262769e
           --html=reports/report.html \
           --self-contained-html \
           --screenshot=only-on-failure \
