@@ -4,6 +4,29 @@ Simple script to verify the test setup is working correctly.
 import sys
 import os
 from pathlib import Path
+
+def setup_imports():
+    """Setup proper imports for both direct execution and module execution."""
+    # Get the project root directory
+    project_root = Path(__file__).resolve().parent
+    
+    # Add project root to Python path if not already there
+    project_root_str = str(project_root)
+    if project_root_str not in sys.path:
+        sys.path.insert(0, project_root_str)
+    
+    # Also add parent directory to handle module execution properly
+    parent_dir = str(project_root.parent)
+    if parent_dir not in sys.path:
+        sys.path.insert(0, parent_dir)
+    
+    # Set PYTHONPATH environment variable for child processes
+    os.environ['PYTHONPATH'] = project_root_str
+
+# Setup imports before any other imports
+setup_imports()
+
+# Import after setting up paths
 from playwright.sync_api import sync_playwright
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
@@ -86,17 +109,14 @@ def verify_basic_functionality():
             print(f"✗ Error during verification: {str(e)}")
             # Ensure browser is closed in case of error
             try:
-                browser.close()
+                if 'browser' in locals():
+                    browser.close()
             except:
                 pass
             return False
 
 
 if __name__ == "__main__":
-    # Add the project root directory to the Python path
-    project_root = Path(__file__).parent
-    sys.path.insert(0, str(project_root))
-    
     success = verify_basic_functionality()
     
     if success:

@@ -1,9 +1,9 @@
-from .base_page import BasePage
-from .login_page import LoginPage
-from .inventory_page import InventoryPage  # Keeping for compatibility
-from .products_page import ProductsPage
-from .cart_page import CartPage
-from .checkout_page import CheckoutPage
+from saucedemo_tests.pages.base_page import BasePage
+from saucedemo_tests.pages.login_page import LoginPage
+from saucedemo_tests.pages.inventory_page import InventoryPage  # Keeping for compatibility
+from saucedemo_tests.pages.products_page import ProductsPage
+from saucedemo_tests.pages.cart_page import CartPage
+from saucedemo_tests.pages.checkout_page import CheckoutPage
 
 __all__ = [
     'BasePage',
