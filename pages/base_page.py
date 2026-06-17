@@ -1,15 +1,15 @@
-from playwright.sync_api import Page, expect, Locator
+from playwright.sync_api import Page, expect
 
 
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
 
-    def find_element(self, locator: str) -> Locator:
+    def find_element(self, locator):
         """Find a single web element."""
         return self.page.locator(locator)
 
-    def find_elements(self, locator: str) -> Locator:
+    def find_elements(self, locator):
         """Find multiple web elements."""
         return self.page.locator(locator)
 

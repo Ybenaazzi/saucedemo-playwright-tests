@@ -1,5 +1,5 @@
 from .base_page import BasePage
-from ..locators import SauceDemoLocators
+from saucedemo_tests.locators.saucedemo_locators import SauceDemoLocators
 
 
 class CartPage(BasePage):

@@ -21,11 +21,11 @@ def setup_imports():
 # Setup imports before any other imports
 setup_imports()
 
-# Import after setting up paths - using relative imports since we're in the package context
+# Import after setting up paths - using absolute imports
 from playwright.sync_api import sync_playwright
-from pages.login_page import LoginPage
-from pages.products_page import ProductsPage
-from utils.test_data import TestData
+from saucedemo_tests.pages.login_page import LoginPage
+from saucedemo_tests.pages.products_page import ProductsPage
+from saucedemo_tests.utils.test_data import TestData
 
 
 def verify_basic_functionality():

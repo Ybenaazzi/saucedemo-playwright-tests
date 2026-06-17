@@ -2,8 +2,8 @@ import sys
 import os
 from pathlib import Path
 import pytest
-from .utils.logger import get_logger
-from .config import Config
+from saucedemo_tests.utils.logger import get_logger
+from saucedemo_tests.config import Config
 
 
 # Add the project root directory to the Python path to enable proper imports
