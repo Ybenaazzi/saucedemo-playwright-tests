@@ -1,5 +1,5 @@
 from .base_page import BasePage
-from ..locators.saucedemo_locators import SauceDemoLocators
+from locators.saucedemo_locators import SauceDemoLocators
 
 
 class InventoryPage(BasePage):
