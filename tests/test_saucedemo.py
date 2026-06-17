@@ -40,8 +40,8 @@ class TestSauceDemo:
             # Wait for URL to change to inventory page
             page.wait_for_url("**/inventory.html", timeout=15000)
             
-            # Additional wait to ensure page is fully loaded
-            page.wait_for_load_state("networkidle")
+            # Wait for page to load
+            page.wait_for_load_state("load")
             
             # Verify the inventory page is loaded by checking for visible inventory items
             assert products_page.is_products_page_loaded(), f"Inventory page not loaded for user: {user_type}"
@@ -124,7 +124,7 @@ class TestSauceDemo:
         # Wait for products page to load
         try:
             page.wait_for_url("**/inventory.html", timeout=15000)
-            page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("load")
             
             # Verify products page is loaded
             assert products_page.is_products_page_loaded(), "Products page did not load properly"
@@ -198,7 +198,7 @@ class TestSauceDemo:
         # Wait for products page to load
         try:
             page.wait_for_url("**/inventory.html", timeout=15000)
-            page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("load")
             
             # Verify products page is loaded
             assert products_page.is_products_page_loaded(), "Products page did not load properly"
@@ -219,8 +219,8 @@ class TestSauceDemo:
         try:
             # Wait for the URL to change to the login page
             page.wait_for_url(f"**{TestData.BASE_URL.lstrip('https://')}**", timeout=10000)
-            # Additional wait to ensure page is fully loaded
-            page.wait_for_load_state("networkidle")
+            # Wait for page to load
+            page.wait_for_load_state("load")
         except Exception as e:
             self.logger.error(f"URL did not change as expected after logout: {str(e)}")
             # Sometimes the redirect takes a bit longer, so we'll just check if we're on the login page
@@ -291,7 +291,7 @@ class TestSauceDemo:
             TestData.VALID_USER_CREDENTIALS["standard_user"]["password"]
         )
         page.wait_for_url("**/inventory.html", timeout=15000)
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state("load")
 
     def _add_product_to_cart(self, page, products_page):
         """Helper method to add a product to cart and return its name."""
