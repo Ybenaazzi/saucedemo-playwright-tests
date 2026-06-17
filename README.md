@@ -6,33 +6,47 @@
 
 ```
 saucedemo_tests/
-├── pages/
-│   ├── __init__.py
-│   ├── base_page.py
-│   ├── login_page.py
-│   ├── inventory_page.py
-│   ├── products_page.py
-│   ├── cart_page.py
-│   └── checkout_page.py
-├── locators/
-│   ├── __init__.py
-│   └── saucedemo_locators.py
-├── utils/
-│   ├── __init__.py
-│   ├── test_data.py
-│   ├── driver_factory.py
-│   └── logger.py
-├── data/
+├── __init__.py
+├── config.py                 # Configuration management with environment variables
+├── conftest.py               # Pytest fixtures and configuration
+├── pyproject.toml            # Build system and project metadata
+├── requirements.txt          # Python dependencies (Playwright, pytest, etc.)
+├── .env.example             # Environment variables template
+├── .gitignore               # Git ignore patterns
+├── README.md                # Project documentation (in Russian)
+├── run_tests.py             # Test execution script with multiple options
+├── verify_setup.py          # Verification script for basic functionality
+├── .github/                 # GitHub configuration
+│   └── workflows/           # GitHub Actions workflows
+│       └── saucedemo_tests.yml  # SauceDemo tests workflow configuration
+├── pages/                   # Page Object Model implementation
+│   ├── __init__.py          # Exposes all page classes
+│   ├── base_page.py         # Base page with common methods
+│   ├── login_page.py        # SauceDemo login page object
+│   ├── inventory_page.py    # SauceDemo inventory page object
+│   ├── products_page.py     # SauceDemo products page object
+│   ├── cart_page.py         # SauceDemo cart page object
+│   └── checkout_page.py     # SauceDemo checkout page object
+├── locators/                # Element locators centralized management
+│   ├── __init__.py          # Exposes SauceDemoLocators
+│   └── saucedemo_locators.py # All SauceDemo page element locators
+├── utils/                   # Utility classes and data
+│   ├── __init__.py          # Exposes utilities
+│   ├── test_data.py         # Test data and credentials management
+│   ├── driver_factory.py    # Playwright browser management utilities
+│   └── logger.py            # Logging functionality
+├── data/                    # Test data files (empty directory placeholder)
 │   └── __init__.py
-├── reports/
+├── reports/                 # HTML test reports output (empty directory placeholder)
 │   └── __init__.py
-├── tests/
-│   └── test_saucedemo.py
-├── config.py
-├── conftest.py
-├── run_tests.py
-├── requirements.txt
-└── README.md
+├── logs/                    # Runtime logs output (empty directory placeholder)
+│   └── __init__.py
+├── screenshots/             # Screenshot output (empty directory placeholder)
+│   └── __init__.py
+├── .pytest_cache/           # Pytest cache directory
+├── saucedemo_env/           # Python virtual environment
+└── tests/                   # Test cases
+    └── test_saucedemo.py    # Main test file with multiple test scenarios
 ```
 
 ## Инструкции по установке
