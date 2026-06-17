@@ -1,9 +1,9 @@
 import pytest
-from pages.login_page import LoginPage
-from pages.products_page import ProductsPage
-from pages.cart_page import CartPage
-from utils.test_data import TestData
-from utils.logger import get_logger
+from ..pages.login_page import LoginPage
+from ..pages.products_page import ProductsPage
+from ..pages.cart_page import CartPage
+from ..utils.test_data import TestData
+from ..utils.logger import get_logger
 
 
 class TestSauceDemo:

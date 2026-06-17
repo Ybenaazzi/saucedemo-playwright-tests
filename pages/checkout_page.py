@@ -1,5 +1,5 @@
-from pages.base_page import BasePage
-from locators.saucedemo_locators import SauceDemoLocators
+from .base_page import BasePage
+from ..locators.saucedemo_locators import SauceDemoLocators
 
 
 class CheckoutPage(BasePage):

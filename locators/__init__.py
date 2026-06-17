@@ -1,3 +1,3 @@
-from locators.saucedemo_locators import SauceDemoLocators
+from .saucedemo_locators import SauceDemoLocators
 
 __all__ = ['SauceDemoLocators']

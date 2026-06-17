@@ -3,7 +3,7 @@ Driver factory module for creating and managing Playwright browser instances.
 """
 
 from playwright.sync_api import sync_playwright
-from config import Config
+from ..config import Config
 
 
 class DriverFactory:
