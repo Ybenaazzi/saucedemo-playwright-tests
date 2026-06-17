@@ -1,5 +1,5 @@
-from .base_page import BasePage
-from saucedemo_tests.locators.saucedemo_locators import SauceDemoLocators
+from pages.base_page import BasePage
+from locators.saucedemo_locators import SauceDemoLocators
 
 
 class ProductsPage(BasePage):
@@ -86,7 +86,7 @@ class ProductsPage(BasePage):
         self.page.locator(sort_selector).select_option(sort_option)
 
     def get_cart_badge_count(self):
-        """Get the count from the cart badge on the top right."""
+        """Get the count from the cart badge on the top top right."""
         try:
             cart_badge = self.page.locator(".shopping_cart_badge")
             # Wait for the badge to be visible

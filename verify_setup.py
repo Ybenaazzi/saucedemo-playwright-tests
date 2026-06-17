@@ -5,32 +5,21 @@ import sys
 import os
 from pathlib import Path
 
-def setup_imports():
-    """Setup proper imports for both direct execution and module execution."""
-    # Get the project root directory
-    project_root = Path(__file__).resolve().parent
-    
-    # Add project root to Python path if not already there
-    project_root_str = str(project_root)
-    if project_root_str not in sys.path:
-        sys.path.insert(0, project_root_str)
-    
-    # Set PYTHONPATH environment variable for child processes
-    os.environ['PYTHONPATH'] = project_root_str
-
-# Setup imports before any other imports
-setup_imports()
-
-# Import after setting up paths - using absolute imports
-from playwright.sync_api import sync_playwright
-from saucedemo_tests.pages.login_page import LoginPage
-from saucedemo_tests.pages.products_page import ProductsPage
-from saucedemo_tests.utils.test_data import TestData
-
+# Ensure project root is in sys.path for consistent imports
+project_root = Path(__file__).parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 def verify_basic_functionality():
     print("Starting basic functionality verification...")
     
+    # Import after setting up the path
+    from playwright.sync_api import sync_playwright
+    # Use relative imports that work with the package structure
+    from pages.login_page import LoginPage
+    from pages.products_page import ProductsPage
+    from utils.test_data import TestData
+
     with sync_playwright() as p:
         try:
             # Launch browser
