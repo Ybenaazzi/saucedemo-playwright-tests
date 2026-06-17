@@ -51,7 +51,7 @@ def verify_basic_functionality():
             
             # Wait for navigation to products page
             page.wait_for_url("**/inventory.html")
-            page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("load")
             
             # Verify products page is loaded
             print("Verifying products page is loaded...")
@@ -79,7 +79,7 @@ def verify_basic_functionality():
             
             # Wait for cart page to load
             page.wait_for_url("**/cart.html")
-            page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("load")
             
             print("✓ Navigation to cart successful")
             
